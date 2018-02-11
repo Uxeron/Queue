@@ -2,7 +2,9 @@
 #include "Queue.h"
 
 queue* newQueue() {
-    return (queue*) malloc(sizeof(queue));
+    queue* newQ = (queue*) malloc(sizeof(queue));
+    (*newQ).size = 0;
+    return newQ;
 }
 
 int enqueue(queue* que, int val) {
@@ -14,7 +16,10 @@ int enqueue(queue* que, int val) {
         (*(*que).tail).next = newNode;
     }
     (*newNode).value = val;
+    (*newNode).next = NULL;
     (*que).tail = newNode;
+    if(empty(que))
+        (*que).head = (*que).tail;
     (*que).size += 1;
     return 0;
 }
@@ -44,7 +49,7 @@ int full(queue* que) {
 }
 
 int empty(queue* que) {
-    return (*que).size > 0;
+    return (*que).size == 0;
 }
 
 int first(queue* que) {
@@ -55,15 +60,27 @@ int count(queue* que) {
     return (*que).size;
 }
 
-void clear(queue* que) {
-    node* node1 = (*que).head;
+void erase(queue** que) {
+    if(count(*que) == 1) {
+        dequeue(*que);
+    }
+
+    if(empty(*que)) {
+        free(*que);
+        *que = NULL;
+        return;
+    }
+
+    node* node1 = (**que).head;
     node* node2 = (*node1).next;
 
     while(node1) {
         free(node1);
         node1 = node2;
-        node2 = (*node1).next;
+        if(node2)
+            node2 = (*node2).next;
     }
 
-    free(que);
+    free(*que);
+    *que = NULL;
 }

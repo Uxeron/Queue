@@ -3,13 +3,13 @@
 
     typedef struct node {
         int value;
-        node* next;
+        struct node* next;
     } node;
 
     typedef struct queue {
         node* head;
         node* tail;
-        int size = 0;
+        int size;
     } queue;
 
     queue* newQueue();
@@ -19,5 +19,5 @@
     int empty(queue* que);
     int first(queue* que);
     int count(queue* que);
-    void clear(queue* que);
+    void erase(queue** que);
 #endif
