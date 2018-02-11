@@ -1,16 +1,5 @@
 #include <stdlib.h>
-//#include <stdio.h>
-
-typedef struct node {
-    int value;
-    node* next;
-} node;
-
-typedef struct queue {
-    node* head;
-    node* tail;
-    int size = 0;
-} queue;
+#include "Queue.h"
 
 queue* newQueue() {
     return (queue*) malloc(sizeof(queue));
