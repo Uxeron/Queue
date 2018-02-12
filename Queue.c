@@ -45,6 +45,7 @@ int full(queue* que) {
     if(!newNode) {
         return 1;
     }
+	free(newNode);
     return 0;
 }
 
